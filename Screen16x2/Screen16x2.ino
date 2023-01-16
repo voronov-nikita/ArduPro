@@ -7,7 +7,6 @@ String ls[][4]={
     {"goodbye", "ok", "new"}, 
     {"code", "update", "install"}
  };
-int position = 0;
 
 constexpr uint8_t PIN_RS = 6;
 constexpr uint8_t PIN_EN = 7;
@@ -19,7 +18,7 @@ constexpr uint8_t PIN_DB7 = 11;
 LiquidCrystal lcd(PIN_RS, PIN_EN, PIN_DB4, PIN_DB5, PIN_DB6, PIN_DB7);
 
 int name, new_name;
-
+int position = 0;
 void setup() {
   Serial.begin(9600);
 
@@ -45,15 +44,15 @@ void loop() {
   while(true){
     name = Serial.parseInt();
     Serial.println(name);
-    new_name = name;
-      if ( name==1)
-        position--;
-        name = Serial.parseInt();
+    switch(name){
+      case 1:
+          operation();
+           break;
+      case 2:
         operation();
-      if (name==2)
-        position++;
-        name = Serial.parseInt();
-        operation();
+        break;
+         
+    }
   }
 //  switch(name){
 //    case 0:
