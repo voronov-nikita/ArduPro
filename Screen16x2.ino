@@ -1,0 +1,73 @@
+// Библиотека для работы с текстовым дисплеем
+#include <LiquidCrystal.h>
+
+
+String ls[5]={"hello", "goodbye", "ok", "new", "code"};
+int position = 0;
+
+constexpr uint8_t PIN_RS = 6;
+constexpr uint8_t PIN_EN = 7;
+constexpr uint8_t PIN_DB4 = 8;
+constexpr uint8_t PIN_DB5 = 9;
+constexpr uint8_t PIN_DB6 = 10;
+constexpr uint8_t PIN_DB7 = 11;
+ 
+LiquidCrystal lcd(PIN_RS, PIN_EN, PIN_DB4, PIN_DB5, PIN_DB6, PIN_DB7);
+
+int name, new_name;
+
+void setup() {
+  Serial.begin(9600);
+
+  lcd.begin(16, 2);
+  
+}
+void operation(){
+  lcd.setCursor(0, 0);
+  lcd.print("                ");
+  lcd.print(ls[position]);
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
+  lcd.print(ls[position+1]);
+  }
+void loop() {
+  lcd.setCursor(0, 0);
+
+  if(Serial.available() > 0){
+    name = Serial.parseInt();
+      Serial.println(name);
+  }
+
+  while(true){
+    name = Serial.parseInt();
+    Serial.println(name);
+    new_name = name;
+      if ( name==1)
+        position--;
+        name = Serial.parseInt();
+        operation();
+      if (name==2)
+        position++;
+        name = Serial.parseInt();
+        operation();
+  }
+//  switch(name){
+//    case 0:
+//      lcd.print(ls[position]);
+//      lcd.setCursor(0, 1);
+//      lcd.print(ls[position+1]);
+//    case 1:
+//      lcd.print(ls[0]);
+//      lcd.setCursor(0, 1);
+//      lcd.print(ls[1]);
+//      break;
+//    case 2:
+//      lcd.print(ls[1]);
+//      lcd.setCursor(0, 1);
+//      lcd.print(ls[2]);
+//      break;
+//    default:
+//      Serial.println(ls[1]);
+//      break;
+//    }
+}
