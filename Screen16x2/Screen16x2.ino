@@ -2,7 +2,11 @@
 #include <LiquidCrystal.h>
 
 
-String ls[5]={"hello", "goodbye", "ok", "new", "code"};
+String ls[][4]={
+    {"one", "two", "three"},
+    {"goodbye", "ok", "new"}, 
+    {"code", "update", "install"}
+ };
 int position = 0;
 
 constexpr uint8_t PIN_RS = 6;
