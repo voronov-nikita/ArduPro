@@ -56,7 +56,7 @@ void loop() {
       }
   if (enc.isClick()){
           if (main_menu[position_list][position_catalog] == "cancel"){
-            position_list--;
+            position_list = 0;
             position_catalog = 0;
             }
           else{
