@@ -1,12 +1,23 @@
-#include <GyverEncoder.h> // импортируем библиотеку для работы с энкодером
-#include <LiquidCrystal.h> //импортируем библиотеку для работы с экраном
+// Библиотека для работы с текстовым дисплеем
+#include <LiquidCrystal.h>
+#include <GyverEncoder.h>
 
-// создаем пины
-// энкодер
+String main_menu[][4]={
+  {"hello", "goodbye", "ok", "new"},
+  {"play", "stop", "cancel"},
+  {"start", "file", "cancel"},
+  {"lib", "None", "cancel"},
+  {"e", "not", "ll"}
+};
+
+
+
+int position_list = 0, position_catalog = 0;
+
 #define CLK 2
 #define DT 3
 #define SW 4
-// экран
+
 constexpr uint8_t PIN_RS = 6;
 constexpr uint8_t PIN_EN = 7;
 constexpr uint8_t PIN_DB4 = 8;
@@ -14,57 +25,58 @@ constexpr uint8_t PIN_DB5 = 9;
 constexpr uint8_t PIN_DB6 = 10;
 constexpr uint8_t PIN_DB7 = 11;
 
-// создаем обьект lcd 
-LiquidCrystal lcd(PIN_RS, PIN_EN, PIN_DB4, 
-PIN_DB5, PIN_DB6, PIN_DB7);
 
-// создаем обьект enc
-Encoder enc(CLK, DT, SW);
+Encoder enc(CLK, DT, SW, TYPE2);
+LiquidCrystal lcd(PIN_RS, PIN_EN, PIN_DB4, PIN_DB5, PIN_DB6, PIN_DB7);
 
-int name; //создаем переменную считывающая данные
-int position_catalog = 0, position_list = 0; //начальная позиция
-
-// создаем список основного меню
-String main_menu[][5]= {"number", "download", "start", "color", ""};
-int len_arr = 5;
-// создаем вложенный массив команд из 4x5
-String command[][5]= {
-  {"one", "two", "three", "four", "back"},
-  {"new", "update", "install", "uninstall", "back"},
-  {"open", "close", "Play", "clear", "back"},
-  {"red", "green", "blue", "white", "black"}  
-};
-
-// один раз
+String clearing = "                 ";
 void setup() {
-  enc.setType(TYPE2); //тип энкодера (круглый-TYPE2)
-  
-  lcd.begin(16, 2); // определяем экран, как 2 строки на 16 столбцов
-  lcd.setCursor(0, 0); //ставим курсор на 0 столбец и первую строку
-  
-  Serial.begin(9600); //заставляем общаться с монитором порта
+  Serial.begin(9600);
 
+  lcd.begin(16, 2);
+
+  enc.setType(TYPE2);
+  
 }
-
-// вечный цикл
 void loop() {
-  enc.tick();  // отслеживание работы энкодера
-  // если энкодер повернулся
-  if (enc.isTurn()){  
-    // если вправо
-    if (enc.isRight()){
-      if (position_list < len_arr)
-        position_list++;
-    }
-    // если влево
-    if (enc.isLeft()){
-      if (position_list > len_arr)
-        position_list--;    
-    }
-  }
-  // если на энкодер нажали
+  enc.tick();
+  if (enc.isRight()){
+        position_catalog--;
+        lcd.setCursor(0, 0);
+        lcd.print(clearing);
+        lcd.setCursor(0, 1);
+        lcd.print(clearing);
+        }
+  if (enc.isLeft()){
+        position_catalog++;
+        lcd.setCursor(0, 0);
+        lcd.print(clearing);
+        lcd.setCursor(0, 1);
+        lcd.print(clearing);
+      }
   if (enc.isClick()){
-    position_catalog = position_list;
-    position_list = 0;        
-  }    
+          if (main_menu[position_list][position_catalog] == "cancel"){
+            position_list--;
+            position_catalog = 0;
+            }
+          else{
+          position_list = position_catalog+1;
+          position_catalog = 0;
+          }
+        }
+        
+  if (position_catalog > 2){
+        position_catalog = 2;
+        }
+  else if (position_catalog < 0){
+        position_catalog = 0;
+        }
+
+      
+      lcd.setCursor(0, 0);
+      lcd.print(main_menu[position_list][position_catalog]);
+      lcd.setCursor(0, 1);
+      lcd.print(main_menu[position_list][position_catalog+1]);
+
+    
 }
