@@ -12,4 +12,6 @@ void loop(){
   // выводим значение радара
   Serial.println(sonar.ping_cm());
 
+  delay(30);
+
 }
