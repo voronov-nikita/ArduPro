@@ -21,4 +21,7 @@ void loop() {
     noTone(Pisk);      // не пищать
     delay(500);
   }
+  else{
+    noTone(Pisk);  
+  }
 }
