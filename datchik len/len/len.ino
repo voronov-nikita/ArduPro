@@ -1,5 +1,7 @@
+// Библиотека для радара
 #include <NewPing.h>
 
+// Создаем обьект радара
 NewPing sonar(12, 11, 200);
 
 void setup(){
@@ -7,7 +9,7 @@ void setup(){
 }
 
 void loop(){
-  
+  // выводим значение радара
   Serial.println(sonar.ping_cm());
 
 }
