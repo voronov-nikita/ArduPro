@@ -1,9 +1,8 @@
-void setup() {
-  // put your setup code here, to run once:
-
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-
+float k = 0.1; // коэффицент погрешности, настраиваемый
+// тип данных на выходе должен быть float, для более мягкого графика
+float expRunningAverage(float newVal){
+  static float filVal = 0;  // задаем начальное сравнение
+  filVal+=(newVal-filVal)*k;  // производим вычисления
+  return filVal;  // возвращаем устредненое значение
+//   самое главное - это сделать задержку, чтобы фильтр успевал обрабатывать входящие данные
 }
