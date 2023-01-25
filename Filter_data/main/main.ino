@@ -1,6 +1,9 @@
 // Датчик расстояния без бибилиотек
 int trigPin = 12; 
-  int echoPin = 13;
+int echoPin = 13;
+int rast;
+float k =0.1;
+
 void setup(){
   Serial.begin(9600);
   pinMode(trigPin, OUTPUT);
@@ -23,10 +26,17 @@ int dist(int trigPin, int echoPin){
   distance = duration / 58;
   // Выведем значение в Serial Monitor
   return distance;
-  }
-  
+}
+
+float expRunningAverage(float newVal){
+  static float filVal = 0;
+  filVal+=(newVal-filVal)*k;
+  return filVal;
+}
+
 void loop(){
-  Serial.print(dist(trigPin, echoPin));
+  rast = expRunningAverage(dist(trigPin, echoPin));
+  Serial.print(rast);
   Serial.print(" cm");
   delay(100);
-  }
+}
