@@ -1,3 +1,5 @@
+// НЕЗАКОНЧЕНО!
+
 const int switchPin = 8;
 const int pinX = A0;
 const int pinY = A1;
