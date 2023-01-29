@@ -1,6 +1,16 @@
 # ArduinoProjects
+
+![ArduinoPicture](ard.jpg)
+
+<font size=5>
 This repository was created for Arduino mini-projects.
+</font>
 
-Я не преследую цели распространить данный репозиторий, мне просто требуется место, где можно хранить мои мини-проеты и задачи. 
+<font size=4>
+The main goal is creating mini hints for future projects.
 
-Возможно, в будущем, я сделаю что-то действительно качественное и полезное.
+I`m glad if the my notes will be useful for you.
+</font>
+
+###### Sorry for my English
+###### 29.01.23 - the last commit.
