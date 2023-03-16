@@ -1,4 +1,4 @@
-# ArduinoProjects
+# Arduino-mini-Projects
 
 ![ArduinoPicture](ard.jpg)
 
