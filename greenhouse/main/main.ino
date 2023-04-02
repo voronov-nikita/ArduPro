@@ -1,5 +1,5 @@
 // https://youtu.be/2KWZqm1U9uM - доделать!
-// #include "stDHT.h"
+#include "stDHT.h"
 
 #define dw digitalWrite
 #define ar analogRead
@@ -11,13 +11,19 @@ int list_pin_read[6] = {A0, A1, A2, A3, A4, A5};
 int list_soil_values[6];
 int list_air_values[4][2];
 
-// DHT sensor(DHT11);
+DHT sensor(DHT11);
 
 void setup() {
   Serial.begin(9600);
   
+  // определение пинов для почвы
   for (int i=7; i<=12; i++) pinMode(i, OUTPUT);   
   
+  // определение пинов для воздуха
+  for (int i=1; i<1+4; i++){
+    pinMode(i, INPUT);
+    dw(i, 1);
+  }    
 }
 
 void loop() {
@@ -33,8 +39,8 @@ void loop() {
     list_air_values[pin-1][0] = temperature;
     list_air_values[pin-1][1] = humidity;
   }
-  // задержка при опрашивании датчика в <секундах>
-  delay(stoped*1000);                                                         
+  // задержка при опрашивании датчика в <часах>
+  delay(stoped*1000*60*60);                                                        
 }
 
 // опрашивание датчика почвы используя пин питания и пин чтения
