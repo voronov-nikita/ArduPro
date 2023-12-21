@@ -22,6 +22,7 @@
 2. [HC-SR04 - ультразвуковой сонар](/sensors/HC-SR04.ino)
 3. [RFID - датчик с меткой](/sensors/RFID-c522.ino)
 4. [MPU6050 - гироскоп-акселерометр](/sensors/MPU6050.ino)
+5. [Servo - управление сервомашинкой](/sensors/Servo.ino)
 
 
 ## Полезные ссылки
@@ -29,4 +30,4 @@
 2. [iarduino.ru](https://iarduino.ru/)
 
 
-###### 15.12.2023
+###### 21.12.2023
